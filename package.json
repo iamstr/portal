@@ -1,4 +1,5 @@
 {
+  "homepage": " /",
   "name": "material-dashboard-react",
   "version": "1.8.0",
   "description": "Material Dashboard React. Coded by Creative Tim",
@@ -41,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
   },
-  "homepage": "https://creativetimofficial.github.io/material-dashboard-react/#/dashboard",
+  
   "optionalDependencies": {
     "@types/googlemaps": "3.37.3",
     "@types/markerclustererplus": "2.1.33",
