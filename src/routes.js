@@ -17,13 +17,16 @@
 */
 // @material-ui/icons
 import AddIcon from "@material-ui/icons/Add";
-import BusinessIcon from '@material-ui/icons/Business';
+import BusinessIcon from "@material-ui/icons/Business";
 import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from "@material-ui/icons/Person";
+import SettingsIcon from "@material-ui/icons/Settings";
 import Ticket from "components/Ticket/Ticket";
+import Branch from "views/Business/Branch";
 import Business from "views/Business/Business";
 import Client from "views/Client/Client";
 import NewBus from "views/NewBus/NewBus";
+import Settings from "views/Settings/Settings";
 import TableList from "views/TableList/TableList.js";
 const dashboardRoutes = [
   {
@@ -65,6 +68,22 @@ const dashboardRoutes = [
     rtlName: "طباعة",
     icon: AddIcon,
     component: Ticket,
+    layout: "/admin"
+  },
+  {
+    path: "/manage/branch/add",
+    name: "Add New Branch",
+    rtlName: "طباعة",
+    icon: AddIcon,
+    component: Branch,
+    layout: "/admin"
+  },
+  {
+    path: "/setting",
+    name: "Settings",
+    rtlName: "طباعة",
+    icon: SettingsIcon,
+    component: Settings,
     layout: "/admin"
   }
 ];

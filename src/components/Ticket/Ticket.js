@@ -1,5 +1,6 @@
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
@@ -12,7 +13,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Seats from "components/Seats/Seats";
 import React from "react";
-
+import PDF from "views/PDF/PDF";
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -36,6 +37,11 @@ const useStyles = makeStyles(styles);
 export default function NewBus() {
   const [select, setSelect] = React.useState(false);
   const [payment, setPayment] = React.useState(false);
+  const [status, setStatus] = React.useState();
+  const [pdf, setPdf] = React.useState();
+  const customRef = data => {
+    setStatus(data);
+  };
   const callbackFunction = childData => {
     setSelect(childData);
   };
@@ -164,7 +170,42 @@ export default function NewBus() {
             ) : (
               ""
             )}
-            {payment === true ? <FormDialog /> : ""}
+            {payment === true ? (
+              <FormDialog
+                pdfShow={() => {
+                  setPdf(true);
+                }}
+              />
+            ) : (
+              ""
+            )}
+
+            {pdf && (
+              <PDFDownloadLink
+                document={
+                  <PDF
+                    data={{
+                      seat: "A20",
+                      name: "abdisatar mohamed",
+                      paid: "mpesa",
+                      "travel Date": "20/01/20"
+                    }}
+                  />
+                }
+                fileName="ticket.pdf"
+                style={{
+                  textDecoration: "none",
+                  padding: "10px",
+                  color: "#4a4a4a",
+                  backgroundColor: "#f2f2f2",
+                  border: "1px solid #4a4a4a"
+                }}
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "Download Pdf"
+                }
+              </PDFDownloadLink>
+            )}
           </Card>
         </GridItem>
       </GridContainer>

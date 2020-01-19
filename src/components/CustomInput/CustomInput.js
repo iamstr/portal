@@ -1,20 +1,22 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
+import Check from "@material-ui/icons/Check";
 // @material-ui/icons
 import Clear from "@material-ui/icons/Clear";
-import Check from "@material-ui/icons/Check";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/customInputStyle.js";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React from "react";
 
 const useStyles = makeStyles(styles);
 
 export default function CustomInput(props) {
+  const inputLabel = React.useRef(null);
+  const [value, setValue] = React.useState();
   const classes = useStyles();
   const {
     formControlProps,
@@ -25,6 +27,10 @@ export default function CustomInput(props) {
     error,
     success
   } = props;
+
+  const handleChange = event => {
+    setValue(event.target.value);
+  };
 
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
@@ -53,6 +59,7 @@ export default function CustomInput(props) {
         </InputLabel>
       ) : null}
       <Input
+        value={value}
         classes={{
           root: marginTop,
           disabled: classes.disabled,
@@ -60,6 +67,7 @@ export default function CustomInput(props) {
         }}
         id={id}
         {...inputProps}
+        onChange={handleChange}
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
@@ -77,5 +85,6 @@ CustomInput.propTypes = {
   inputProps: PropTypes.object,
   formControlProps: PropTypes.object,
   error: PropTypes.bool,
-  success: PropTypes.bool
+  success: PropTypes.bool,
+  inputCustomRef: PropTypes.func
 };
