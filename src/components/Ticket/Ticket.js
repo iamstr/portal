@@ -45,9 +45,7 @@ export default function NewBus() {
     setStatus(data);
   };
 
-  React.useEffect(() => {
-    console.log(downloadRef.current);
-  }, []);
+  
   const callbackFunction = childData => {
     setSelect(childData);
   };
@@ -208,9 +206,8 @@ export default function NewBus() {
                 }}
               >
                 {({ blob, url, loading, error }) =>
-                  loading ? "Loading document..." : downloadRef.current.href
+                  loading ? "Loading document..." : "download here"
                 }
-                ref={downloadRef}
               </PDFDownloadLink>
             )}
           </Card>
