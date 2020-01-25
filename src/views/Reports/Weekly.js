@@ -8,7 +8,6 @@ import GridItem from "components/Grid/GridItem.js";
 import Table from "components/Table/Table.js";
 import React from "react";
 
-
 const useStyles = makeStyles(theme => ({
   cardCategoryWhite: {
     root: {
@@ -62,7 +61,9 @@ export default function Weekly() {
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>This is the Weekly report</h4>
+              <h4 className={classes.cardTitleWhite}>
+                This is the Weekly report
+              </h4>
               <p className={classes.cardCategoryWhite}>
                 Here is Details of all the tickets sold
               </p>
@@ -70,14 +71,14 @@ export default function Weekly() {
             <CardBody className={classes.table}>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["ID", "Date", "Number of Tickets Sold"]}
+                tableHead={["ID", "Week", "Tickets Sold"]}
                 tableData={[
-                  ["1", "2020-01-02", "7"],
-                  ["2", "2020-01-03", "17"],
-                  ["3", "2020-01-04", "117"],
-                  ["4", "2020-01-05", "27"],
-                  ["5", "2020-01-06", "70"],
-                  ["6", "2020-01-07", "97"]
+                  ["1", "2", "7"],
+                  ["2", "3", "17"],
+                  ["3", "4", "117"],
+                  ["4", "5", "27"],
+                  ["5", "6", "70"],
+                  ["6", "7", "97"]
                 ]}
               />
             </CardBody>

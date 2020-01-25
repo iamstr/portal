@@ -54,16 +54,22 @@ const useStyles = makeStyles(theme => ({
 export default function Reports() {
   const classes = useStyles();
 
-  const [report, setReport] = React.useState("Monthly");
+  const [report, setReport] = React.useState("monthly");
 
   const handler = event => {
-    const handle = event === "Monthly" || event === "Weekly" ? event : "";
-    handle === "" ? alert("please click on the button") : setReport(event);
+    setReport(true);
+    console.log(event.target.value);
+  };
+  const handler2 = event => {
+    setReport("monthly");
     console.log(event.target.value);
   };
 
+  React.useEffect(() => {
+    setReport(report);
+  }, []);
   const TypeReport = props => {
-    const Returns = report === "Monthly" ? <Monthly /> : <Weekly />;
+    const Returns = report === "monthly" ? <Monthly /> : <Weekly />;
     return Returns;
   };
   return (
@@ -84,7 +90,7 @@ export default function Reports() {
           </Button>
           <Button
             onClick={e => {
-              handler(e);
+              handler2(e);
             }}
             value="Monthly"
           >
@@ -92,7 +98,7 @@ export default function Reports() {
           </Button>
         </ButtonGroup>
       </div>
-      <TypeReport />
+      {report && <TypeReport />}
     </div>
   );
 }
