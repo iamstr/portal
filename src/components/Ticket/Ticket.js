@@ -39,9 +39,12 @@ export default function NewBus() {
   const [payment, setPayment] = React.useState(false);
   const [status, setStatus] = React.useState();
   const [pdf, setPdf] = React.useState();
+  const theRef=React.useRef();
   const customRef = data => {
     setStatus(data);
   };
+
+  
   const callbackFunction = childData => {
     setSelect(childData);
   };
@@ -204,6 +207,7 @@ export default function NewBus() {
                 {({ blob, url, loading, error }) =>
                   loading ? "Loading document..." : "Download Pdf"
                 }
+                ref={theRef}
               </PDFDownloadLink>
             )}
           </Card>

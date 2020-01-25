@@ -1,31 +1,60 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import PropTypes from "prop-types";
 import React from "react";
 
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "row",
-    backgroundColor: "#E4E4E4"
+    // flexDirection: "row",
+    // backgroundColor: "#E4E4E4"
   },
   section: {
     margin: 10,
     padding: 10,
-    flexGrow: 1
-  }
+    flexDirection: "row",
+    width: "100%"
+  },
+  item: { margin: 10, padding: 10 }
 });
 
 // Create Document Component
-const PDF = () => (
+const PDF = props => (
   <Document>
-    <Page size="A4" style={styles.page}>
+    <Page size="A3" style={styles.page}>
       <View style={styles.section}>
-        <Text>Section #1</Text>
+        <View  style={styles.item}>
+          <Text>Seat</Text>
+        </View>
+        <View  style={styles.item}>
+          <Text>Client Name</Text>
+        </View>
+        <View  style={styles.item}>
+          <Text>Payment Mode</Text>
+        </View>
+        <View  style={styles.item}>
+          <Text>Travel Date</Text>
+        </View>
       </View>
       <View style={styles.section}>
-        <Text>Section #2</Text>
+        <View  style={styles.item}>
+          <Text>{props.data.seat}</Text>
+        </View>
+        <View  style={styles.item}>
+          <Text>{props.data.name}</Text>
+        </View>
+        <View  style={styles.item}>
+          <Text>{props.data.paid}</Text>
+        </View>
+        <View  style={styles.item}>
+          <Text>{props.data["travel Date"]}</Text>
+        </View>
       </View>
     </Page>
   </Document>
 );
+
+PDF.prototype = {
+  data: PropTypes.object
+};
 
 export default PDF;
