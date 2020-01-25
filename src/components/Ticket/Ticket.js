@@ -40,7 +40,7 @@ export default function NewBus() {
   const [status, setStatus] = React.useState();
   const [download, setDownload] = React.useState();
   const [pdf, setPdf] = React.useState();
-  const downloadRef = React.useRef();
+  
   const customRef = data => {
     setStatus(data);
   };
