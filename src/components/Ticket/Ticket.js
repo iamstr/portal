@@ -38,13 +38,16 @@ export default function NewBus() {
   const [select, setSelect] = React.useState(false);
   const [payment, setPayment] = React.useState(false);
   const [status, setStatus] = React.useState();
+  const [download, setDownload] = React.useState();
   const [pdf, setPdf] = React.useState();
-  const theRef=React.useRef();
+  const downloadRef = React.useRef();
   const customRef = data => {
     setStatus(data);
   };
 
-  
+  React.useEffect(() => {
+    console.log(downloadRef.current);
+  }, []);
   const callbackFunction = childData => {
     setSelect(childData);
   };
@@ -205,9 +208,9 @@ export default function NewBus() {
                 }}
               >
                 {({ blob, url, loading, error }) =>
-                  loading ? "Loading document..." : "Download Pdf"
+                  loading ? "Loading document..." : downloadRef.current.href
                 }
-                ref={theRef}
+                ref={downloadRef}
               </PDFDownloadLink>
             )}
           </Card>

@@ -20,32 +20,32 @@ const styles = StyleSheet.create({
 // Create Document Component
 const PDF = props => (
   <Document>
-    <Page size="A3" style={styles.page}>
+    <Page size="A5" style={styles.page}>
       <View style={styles.section}>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>Seat</Text>
         </View>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>Client Name</Text>
         </View>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>Payment Mode</Text>
         </View>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>Travel Date</Text>
         </View>
       </View>
       <View style={styles.section}>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>{props.data.seat}</Text>
         </View>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>{props.data.name}</Text>
         </View>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>{props.data.paid}</Text>
         </View>
-        <View  style={styles.item}>
+        <View style={styles.item}>
           <Text>{props.data["travel Date"]}</Text>
         </View>
       </View>
