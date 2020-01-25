@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 // Create Document Component
 const PDF = props => (
   <Document>
-    <Page size="A5" style={styles.page}>
+    <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <View style={styles.item}>
           <Text>Seat</Text>
