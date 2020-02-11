@@ -1,4 +1,3 @@
-import InputLabel from "@material-ui/core/InputLabel";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Card/Card.js";
@@ -6,12 +5,19 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardHeader from "components/Card/CardHeader.js";
 import Button from "components/CustomButtons/Button.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
+import Input from "components/CustomInput/Input.js";
+import FormDialog from "components/Dialog/UserDialog";
 import GridContainer from "components/Grid/GridContainer.js";
 // core components
 import GridItem from "components/Grid/GridItem.js";
+import SimpleSelect from "components/Select/Select";
+import Snackbar from "components/Snackbar/Snackbar";
 import SnackbarContent from "components/Snackbar/SnackbarContent";
-import React, { useState } from "react";
+import React from "react";
+const data = [
+  { value: "Shuttle", data: "Shuttle" },
+  { value: "Bus", data: "Bus" }
+];
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -30,20 +36,80 @@ const styles = {
     textDecoration: "none"
   }
 };
-
-const useStyles = makeStyles(styles);
-// const snackbar = () => {
-//   return
-// };
-export default function NewBus() {
-  const [show, setShow] = useState(false);
-  const classes = useStyles();
+const snackbar = props => {
   return (
-    <div>
+    <Snackbar
+      message="Name successfully added"
+      color="error"
+      variant="warning"
+    />
+  );
+};
+const useStyles = makeStyles(styles);
+export default function NewBus() {
+  const classes = useStyles();
+  const [role, setRole] = React.useState(false);
+  const [status, setStatus] = React.useState("info");
+  const [message, setMessage] = React.useState("successfull");
+  const [name, setName] = React.useState(false);
+  const [seat, setSeat] = React.useState();
+  const [type, setType] = React.useState(false);
+  const [plate, setPlate] = React.useState(false);
+  const [show, setShow] = React.useState(false);
+  const inputLabel = React.useRef(null);
+
+  const handleSubmit = () => {
+    // let headers = new Headers();
+
+    // headers.append("Content-Type", "application/json");
+    // headers.append("Accept", "application/json");
+    const dbData = new FormData();
+    let formBody = [],
+      formRequest = { name, type, seat, plate };
+    dbData.append(name, name);
+    dbData.append(seat, seat);
+    dbData.append(type, type);
+    dbData.append(plate, plate);
+    console.log(formRequest);
+    for (let property in formRequest) {
+      let encodedKey = encodeURIComponent(property);
+      let encodedValue = encodeURIComponent(formRequest[property]);
+      console.log("the property is ", property);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+    console.log("this is the dbData ", formBody);
+    fetch("http://localhost:5000/new/bus", {
+      // mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "post",
+      body: formBody
+    })
+      .then(response => response.json())
+      .then(contents => {
+        console.log(contents);
+        setStatus(contents.color)
+        setMessage(contents.message)
+        setShow(true);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  };
+
+  const changeType = data => {
+    setType(data);
+  };
+
+  return (
+    <form onSubmit={() => handleSubmit()}>
       {show === true && (
         <SnackbarContent
-          message="Name successfully added"
-          color="info"
+          message={message}
+          color={status}
           autoHideDuration={2000}
           anchorOrigin={{ vertical: "center", horizontal: "center" }}
         />
@@ -52,106 +118,63 @@ export default function NewBus() {
         <GridItem xs={12} sm={12} md={8}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Add New Bus</h4>
+              <h4 className={classes.cardTitleWhite}>Add Bus</h4>
               <p className={classes.cardCategoryWhite}>
-                Add Details of The bus
+                Add Details of New Bus
               </p>
             </CardHeader>
             <CardBody>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    labelText="Company (disabled)"
-                    id="company-disabled"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    labelText="Username"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Email address"
-                    id="email-address"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="First Name"
-                    id="first-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Last Name"
-                    id="last-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="City"
-                    id="city"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
+                <GridItem xs={12} sm={12} md={12}>
+                  <Input
+                    labelText="phone"
                     id="country"
                     formControlProps={{
                       fullWidth: true
                     }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Postal Code"
-                    id="postal-code"
-                    formControlProps={{
-                      fullWidth: true
+                    inputCustomRef={ref => {
+                      setName(ref);
                     }}
+                    labeled="Bus Name"
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                  <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
-                  <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                    id="about-me"
+                  <Input
+                    labelText="phone"
+                    id="country"
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5
+                    inputCustomRef={ref => {
+                      setSeat(ref);
                     }}
+                    labeled="Number of Seats"
+                  />
+                </GridItem>
+              </GridContainer>
+
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Input
+                    labelText="First Name"
+                    id="plate-name"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputCustomRef={ref => {
+                      setPlate(ref);
+                    }}
+                    labeled="Bus Plate Number"
+                  />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <SimpleSelect
+                    options={data}
+                    customRef={ref => changeType(ref)}
                   />
                 </GridItem>
               </GridContainer>
@@ -160,15 +183,18 @@ export default function NewBus() {
               <Button
                 color="primary"
                 onClick={() => {
-                  setShow(true);
+                  //setRole(true);
+                  handleSubmit();
+                  console.log(name, seat, type, plate);
                 }}
               >
-                Add Bus
+                Add New Bus
               </Button>
+              {role === true && <FormDialog />}
             </CardFooter>
           </Card>
         </GridItem>
       </GridContainer>
-    </div>
+    </form>
   );
 }

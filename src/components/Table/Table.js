@@ -20,52 +20,39 @@ export default function CustomTable(props) {
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
-        {tableHead !== undefined ? (
-          <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-            <TableRow className={classes.tableHeadRow}>
-              {tableHead.map((prop, key) => {
-                return (
-                  <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}
-                  >
-                    {prop}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-        ) : null}
+        <TableHead
+          className={classes[tableHeaderColor + "TableHeader"]}
+        ></TableHead>
+
         <TableBody>
-          {tableData.map((prop, key) => {
+          {tableData.map((branch, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
-                {prop.map((prop, key) => {
-                  if (prop === "Active") {
-                    return (
-                      <TableCell
-                        className={classes.tableCell + " " + "bus--active"}
-                        key={key}
-                      >
-                        {prop}
-                      </TableCell>
-                    );
-                  } else if (prop === "Inactive") {
-                    return (
-                      <TableCell
-                        className={classes.tableCell + " " + "bus--broke"}
-                        key={key}
-                      >
-                        {prop}
-                      </TableCell>
-                    );
-                  }
-                  return (
-                    <TableCell className={classes.tableCell} key={key}>
-                      {prop}
-                    </TableCell>
-                  );
-                })}
+                <TableCell className={classes.tableCell} key={key+1}>
+                  {branch.branch_id}
+                </TableCell>
+                <TableCell className={classes.tableCell} key={key+2}>
+                  {branch.branch_name}
+                </TableCell>
+                <TableCell className={classes.tableCell} key={key+3}>
+                  {branch.branch_location}
+                </TableCell>
+
+                {branch.branch_status === "Active" ? (
+                  <TableCell
+                    className={classes.tableCell + " " + "bus--active"}
+                    key={key+5}
+                  >
+                    {branch.branch_status}
+                  </TableCell>
+                ) : (
+                  <TableCell
+                    className={classes.tableCell + " " + "bus--broke"}
+                    key={key+5}
+                  >
+                    Inactive
+                  </TableCell>
+                )}
               </TableRow>
             );
           })}
@@ -89,6 +76,5 @@ CustomTable.propTypes = {
     "rose",
     "gray"
   ]),
-  tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
+  tableHead: PropTypes.arrayOf(PropTypes.string)
 };

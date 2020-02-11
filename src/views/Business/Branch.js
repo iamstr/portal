@@ -45,6 +45,8 @@ export default function NewBus() {
   const [role, setRole] = React.useState(false);
   const [name, setName] = React.useState(false);
   const [status, setStatus] = React.useState();
+  const [flag, setFlag] = React.useState("info");
+  const [message, setMessage] = React.useState("successfull");
   const [location, setLocation] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const inputLabel = React.useRef(null);
@@ -70,7 +72,7 @@ export default function NewBus() {
 
     formBody = formBody.join("&");
     console.log("this is the dbData ", formBody);
-    fetch("http://801f9d0d.ngrok.io/new/branch", {
+    fetch("http://localhost:5000/new/branch", {
       // mode: "no-cors",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -81,6 +83,8 @@ export default function NewBus() {
       .then(response => response.json())
       .then(contents => {
         console.log(contents);
+        setFlag(contents.color);
+        setMessage(contents.message);
         setShow(true);
       })
       .catch(error => {
@@ -98,8 +102,8 @@ export default function NewBus() {
     <form onSubmit={() => handleSubmit()}>
       {show === true && (
         <SnackbarContent
-          message="Name successfully added"
-          color="info"
+          message={message}
+          color={flag}
           autoHideDuration={2000}
           anchorOrigin={{ vertical: "center", horizontal: "center" }}
         />

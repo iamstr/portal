@@ -42,7 +42,31 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function Business() {
+  const [branches, setBranches] = React.useState([
+    {
+      branch_id: 1,
+      branch_name: "Westlands",
+      branch_location: "Nairobi",
+      branch_status: "Active"
+    },
+    {
+      branch_id: 2,
+      branch_name: "Nairobi CBD",
+      branch_location: "Nairobi",
+      branch_status: "Active"
+    }
+  ]);
+  const fetchBranches = async () => {
+    const urlBranches = await fetch("http://localhost:5000/site/branch");
+    const response = await urlBranches.json();
+    setBranches(response);
+  };
+  React.useEffect(() => {
+    fetchBranches();
+  });
+
   const classes = useStyles();
+ 
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -57,14 +81,7 @@ export default function Business() {
             <Table
               tableHeaderColor="primary"
               tableHead={["ID", "Branch Name", "Location", "Status"]}
-              tableData={[
-                ["1", "1", "MSA", "Active"],
-                ["2", "2", "NBO", "Inactive"],
-                ["3", "3", "KSM", "Active"],
-                ["4", "4", "NBO", "Active"],
-                ["5", "5", "MLD", "Active"],
-                ["6", "6", "GSA", "Active"]
-              ]}
+              tableData={branches}
             />
           </CardBody>
         </Card>
