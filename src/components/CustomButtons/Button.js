@@ -1,14 +1,14 @@
-import React from "react";
+import Button from "@material-ui/core/Button";
+// material-ui components
+import { makeStyles } from "@material-ui/core/styles";
+import styles from "assets/jss/material-dashboard-react/components/buttonStyle.js";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
+import React from "react";
 
-// material-ui components
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 
-import styles from "assets/jss/material-dashboard-react/components/buttonStyle.js";
 
 const useStyles = makeStyles(styles);
 
@@ -56,7 +56,8 @@ RegularButton.propTypes = {
     "danger",
     "rose",
     "white",
-    "transparent"
+    "transparent",
+    "safari"
   ]),
   size: PropTypes.oneOf(["sm", "lg"]),
   simple: PropTypes.bool,

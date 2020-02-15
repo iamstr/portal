@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -26,35 +27,37 @@ export default function CustomTable(props) {
 
         <TableBody>
           {tableData.map((branch, key) => {
-            return (
-              <TableRow key={key} className={classes.tableBodyRow}>
-                <TableCell className={classes.tableCell} key={key+1}>
-                  {branch.branch_id}
-                </TableCell>
-                <TableCell className={classes.tableCell} key={key+2}>
-                  {branch.branch_name}
-                </TableCell>
-                <TableCell className={classes.tableCell} key={key+3}>
-                  {branch.branch_location}
-                </TableCell>
+           
+              return (
+                <TableRow key={key} className={classes.tableBodyRow}>
+                  <TableCell className={classes.tableCell} key={key + 1}>
+                    {branch.branch_id}
+                  </TableCell>
+                  <TableCell className={classes.tableCell} key={key + 2}>
+                    {branch.branch_name}
+                  </TableCell>
+                  <TableCell className={classes.tableCell} key={key + 3}>
+                    {branch.branch_location}
+                  </TableCell>
 
-                {branch.branch_status === "Active" ? (
-                  <TableCell
-                    className={classes.tableCell + " " + "bus--active"}
-                    key={key+5}
-                  >
-                    {branch.branch_status}
-                  </TableCell>
-                ) : (
-                  <TableCell
-                    className={classes.tableCell + " " + "bus--broke"}
-                    key={key+5}
-                  >
-                    Inactive
-                  </TableCell>
-                )}
-              </TableRow>
-            );
+                  {branch.branch_status === "Active" ? (
+                    <TableCell
+                      className={classes.tableCell + " " + "bus--active"}
+                      key={key + 5}
+                    >
+                      {branch.branch_status}
+                    </TableCell>
+                  ) : (
+                    <TableCell
+                      className={classes.tableCell + " " + "bus--broke"}
+                      key={key + 5}
+                    >
+                      Inactive
+                    </TableCell>
+                  )}
+                </TableRow>
+              );
+            
           })}
         </TableBody>
       </Table>

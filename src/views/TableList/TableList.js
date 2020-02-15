@@ -6,7 +6,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import GridContainer from "components/Grid/GridContainer.js";
 // core components
 import GridItem from "components/Grid/GridItem.js";
-import Table from "components/Table/Table.js";
+import Table from "components/Table/BusTable.js";
 import React from "react";
 
 const styles = {
@@ -43,6 +43,18 @@ const useStyles = makeStyles(styles);
 
 export default function TableList() {
   const classes = useStyles();
+  const [buses, setBus] = React.useState([]);
+  const fetchBuses = async () => {
+    const urlBuses = await fetch("http://localhost:5000/new/bus");
+    const response = await urlBuses.json();
+    setBus(response);
+  };
+  // y
+
+  React.useEffect(() => {
+    fetchBuses();
+  }, ["http://localhost:5000/new/bus"]);
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -56,15 +68,14 @@ export default function TableList() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["ID", "Bus Number", "Route", "Status", "Seat Nmbr"]}
-              tableData={[
-                ["1", "1", "MSA-NBO", "Active", "40"],
-                ["2", "2", "NBO-MSA", "Inactive", "45"],
-                ["3", "3", "KSM-NBO", "Active", "40"],
-                ["4", "4", "NBO-KSM", "Active", "40"],
-                ["5", "5", "MLD-LMU", "Active", "40"],
-                ["6", "6", "GSA-WJR", "Active", "40"]
+              tableHead={[
+                "ID",
+                "Bus Number",
+                "Plate Number",
+                "Status",
+                "Seat Nmbr"
               ]}
+              tableData={buses}
             />
           </CardBody>
         </Card>

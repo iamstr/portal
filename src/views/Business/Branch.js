@@ -111,7 +111,7 @@ export default function NewBus() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
           <Card>
-            <CardHeader color="primary">
+            <CardHeader color="safari">
               <h4 className={classes.cardTitleWhite}>Add Branch</h4>
               <p className={classes.cardCategoryWhite}>
                 Add Details of New Office
@@ -159,7 +159,7 @@ export default function NewBus() {
             </CardBody>
             <CardFooter>
               <Button
-                color="primary"
+                color="safari"
                 onClick={() => {
                   //setRole(true);
                   handleSubmit();

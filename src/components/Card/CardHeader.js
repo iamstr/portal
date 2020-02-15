@@ -1,14 +1,13 @@
-import React from "react";
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
+// @material-ui/icons
+// core components
+import styles from "assets/jss/material-dashboard-react/components/cardHeaderStyle.js";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-
-// core components
-import styles from "assets/jss/material-dashboard-react/components/cardHeaderStyle.js";
+import React from "react";
 
 const useStyles = makeStyles(styles);
 
@@ -38,7 +37,8 @@ CardHeader.propTypes = {
     "danger",
     "info",
     "primary",
-    "rose"
+    "rose",
+    "safari"
   ]),
   plain: PropTypes.bool,
   stats: PropTypes.bool,

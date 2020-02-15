@@ -55,7 +55,7 @@ export default function NewBus() {
       <GridContainer container spacing={3}>
         <GridItem xs={12} sm={12} md={7}>
           <Card>
-            <CardHeader color="primary">
+            <CardHeader color="safari">
               <h4 className={classes.cardTitleWhite}>Book Ticket</h4>
               <p className={classes.cardCategoryWhite}>
                 Add Details of The client
@@ -137,7 +137,7 @@ export default function NewBus() {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">Add Ticket Details</Button>
+              <Button color="safari">Add Ticket Details</Button>
             </CardFooter>
           </Card>
         </GridItem>

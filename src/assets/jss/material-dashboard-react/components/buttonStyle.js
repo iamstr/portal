@@ -1,15 +1,4 @@
-import {
-  grayColor,
-  primaryColor,
-  infoColor,
-  successColor,
-  warningColor,
-  dangerColor,
-  roseColor,
-  whiteColor,
-  blackColor,
-  hexToRgb
-} from "assets/jss/material-dashboard-react.js";
+import { blackColor, dangerColor, grayColor, hexToRgb, infoColor, primaryColor, roseColor, safariColor, successColor, warningColor, whiteColor } from "assets/jss/material-dashboard-react.js";
 
 const buttonStyle = {
   button: {
@@ -138,6 +127,28 @@ const buttonStyle = {
         ", 0.2)"
     }
   },
+  safari: {
+    backgroundColor: safariColor[0],
+    boxShadow:
+      "0 2px 2px 0 rgba(" +
+      hexToRgb(safariColor[0]) +
+      ", 0.14), 0 3px 1px -2px rgba(" +
+      hexToRgb(safariColor[0]) +
+      ", 0.2), 0 1px 5px 0 rgba(" +
+      hexToRgb(safariColor[0]) +
+      ", 0.12)",
+    "&:hover,&:focus": {
+      backgroundColor: safariColor[0],
+      boxShadow:
+        "0 14px 26px -12px rgba(" +
+        hexToRgb(safariColor[0]) +
+        ", 0.42), 0 4px 23px 0px rgba(" +
+        hexToRgb(blackColor) +
+        ", 0.12), 0 8px 10px -5px rgba(" +
+        hexToRgb(safariColor[0]) +
+        ", 0.2)"
+    }
+  },
   info: {
     backgroundColor: infoColor[0],
     boxShadow:
@@ -240,6 +251,11 @@ const buttonStyle = {
     "&$primary": {
       "&,&:focus,&:hover,&:visited": {
         color: primaryColor[0]
+      }
+    },
+    "&$safari": {
+      "&,&:focus,&:hover,&:visited": {
+        color: safariColor[0]
       }
     },
     "&$info": {

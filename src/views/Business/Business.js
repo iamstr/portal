@@ -71,7 +71,7 @@ export default function Business() {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
-          <CardHeader color="primary">
+          <CardHeader color="info">
             <h4 className={classes.cardTitleWhite}>Branch Table</h4>
             <p className={classes.cardCategoryWhite}>
               Here is Details of all the Branches

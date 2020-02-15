@@ -92,6 +92,7 @@ const grayColor = [
 ];
 const blackColor = "#000";
 const whiteColor = "#FFF";
+const safariColor = ["#ff4545", "#ff7709", "#f55a4e"];
 
 const boxShadow = {
   boxShadow:
@@ -118,6 +119,14 @@ const infoBoxShadow = {
     hexToRgb(blackColor) +
     ",.14), 0 7px 10px -5px rgba(" +
     hexToRgb(infoColor[0]) +
+    ",.4)"
+};
+const safariBoxShadow = {
+  boxShadow:
+    "0 4px 20px 0 rgba(" +
+    hexToRgb(blackColor) +
+    ",.14), 0 7px 10px -5px rgba(" +
+    hexToRgb(safariColor[0]) +
     ",.4)"
 };
 const successBoxShadow = {
@@ -182,6 +191,11 @@ const roseCardHeader = {
   background:
     "linear-gradient(60deg, " + roseColor[1] + ", " + roseColor[2] + ")",
   ...roseBoxShadow
+};
+const safariCardHeader = {
+  background:
+    "linear-gradient(60deg, " + safariColor[1] + ", " + safariColor[2] + ")",
+  ...safariBoxShadow
 };
 
 const cardActions = {
@@ -263,40 +277,8 @@ const cardLink = {
 };
 
 export {
-  hexToRgb,
+hexToRgb,
   //variables
-  drawerWidth,
-  transition,
-  container,
-  boxShadow,
-  card,
-  defaultFont,
-  primaryColor,
-  warningColor,
-  dangerColor,
-  successColor,
-  infoColor,
-  roseColor,
-  grayColor,
-  blackColor,
-  whiteColor,
-  primaryBoxShadow,
-  infoBoxShadow,
-  successBoxShadow,
-  warningBoxShadow,
-  dangerBoxShadow,
-  roseBoxShadow,
-  warningCardHeader,
-  successCardHeader,
-  dangerCardHeader,
-  infoCardHeader,
-  primaryCardHeader,
-  roseCardHeader,
-  cardActions,
-  cardHeader,
-  defaultBoxShadow,
-  title,
-  cardTitle,
-  cardSubtitle,
-  cardLink
+  drawerWidth, transition, container, boxShadow, card, defaultFont, primaryColor, warningColor, dangerColor, successColor, infoColor, roseColor, grayColor, blackColor, whiteColor, safariColor, primaryBoxShadow, safariBoxShadow, infoBoxShadow, successBoxShadow, warningBoxShadow, dangerBoxShadow, roseBoxShadow, warningCardHeader, successCardHeader, dangerCardHeader, infoCardHeader, primaryCardHeader, roseCardHeader, safariCardHeader, cardActions, cardHeader, defaultBoxShadow, title, cardTitle, cardSubtitle, cardLink
 };
+

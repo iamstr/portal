@@ -1,19 +1,4 @@
-import {
-  drawerWidth,
-  transition,
-  boxShadow,
-  defaultFont,
-  primaryColor,
-  primaryBoxShadow,
-  infoColor,
-  successColor,
-  warningColor,
-  dangerColor,
-  whiteColor,
-  grayColor,
-  blackColor,
-  hexToRgb
-} from "assets/jss/material-dashboard-react.js";
+import { blackColor, boxShadow, dangerColor, defaultFont, drawerWidth, grayColor, hexToRgb, infoColor, primaryBoxShadow, primaryColor, successColor, transition, warningColor, whiteColor } from "assets/jss/material-dashboard-react.js";
 
 const sidebarStyle = theme => ({
   drawerPaper: {
@@ -115,8 +100,7 @@ const sidebarStyle = theme => ({
     display: "block",
     top: "0",
     left: "0",
-    backgroundSize: "cover",
-    backgroundPosition: "center center",
+    backgroundColor: "#9c27b0",
     "&:after": {
       position: "absolute",
       zIndex: "3",
@@ -153,7 +137,7 @@ const sidebarStyle = theme => ({
     position: "relative",
     display: "block",
     padding: "10px 15px",
-    backgroundColor: "transparent",
+    backgroundColor: "rgba(0, 0, 0, 0.14)",
     ...defaultFont
   },
   itemIcon: {
@@ -194,7 +178,7 @@ const sidebarStyle = theme => ({
     }
   },
   blue: {
-    backgroundColor: infoColor[0],
+    backgroundColor:" #ff4545",
     boxShadow:
       "0 12px 20px -10px rgba(" +
       hexToRgb(infoColor[0]) +
@@ -204,7 +188,7 @@ const sidebarStyle = theme => ({
       hexToRgb(infoColor[0]) +
       ",.2)",
     "&:hover,&:focus": {
-      backgroundColor: infoColor[0],
+      backgroundColor: "#ff4545",
       boxShadow:
         "0 12px 20px -10px rgba(" +
         hexToRgb(infoColor[0]) +
