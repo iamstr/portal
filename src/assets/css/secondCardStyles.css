@@ -1,0 +1,40 @@
+.second-card {
+    background-color: #fff1f1;
+    border-color: #fff1f1;
+    padding:.8em 2em;
+    margin:.2em .1em;
+    border-radius: .6em;
+   
+  }
+
+  .grow { transition: all .2s ease-in-out; }
+  .grow:hover ~article.grow:not(:hover ) {
+    transform: scale(.8);
+  }
+.grow:hover { 
+  transform: scale(1.1);
+  
+background-color:#fff;
+  -webkit-box-shadow: 10px 10px 5px 0px rgb(255, 255, 255);
+  -moz-box-shadow: 10px 10px 5px 0px rgb(255, 255, 255);
+  box-shadow: 10px 10px 5px 0px rgba(255, 255, 255,1);}
+  .info-card{
+    /* margin:  .3em  ; */
+    display:flex;
+    justify-content: space-between;
+    flex:1;
+  
+  }
+  .info-header{
+    color:#7a7878;
+    font-weight: 700;
+    padding:.2em .3em;
+  
+  }
+  .info-desc{
+    color:#ac4242;
+    font-weight: 700;
+    padding: 1.3em .3em;
+  
+  }
+  

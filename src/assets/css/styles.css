@@ -2,3 +2,18 @@
     background-color: rgb(18, 177, 79);
   }
   .bus--broke {  background-color: rgb(146, 19, 19); }
+
+  .MuiPickersToolbar-toolbar {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    background: linear-gradient(0deg, #ff7709, #f55a4e);
+}
+
+.MuiPickersDay-daySelected {
+  color: #fff;
+  font-weight: 500;
+  background-color: #f55a4e;
+}

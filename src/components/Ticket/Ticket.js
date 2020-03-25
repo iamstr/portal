@@ -5,15 +5,18 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardHeader from "components/Card/CardHeader.js";
+import SecondCustomCard from "components/Card/SecondCustomCard.js";
 import Button from "components/CustomButtons/Button.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
+import MaterialDatePickers from "components/CustomDate/CustomDate.js";
+import MaterialTimePicker from "components/CustomDate/CustomTime.js";
 import FormDialog from "components/Dialog/Dialog";
 import GridContainer from "components/Grid/GridContainer.js";
 // core components
 import GridItem from "components/Grid/GridItem.js";
-import Seats from "components/Seats/Seats";
 import React from "react";
 import PDF from "views/PDF/PDF";
+import "../../assets/css/styles.css";
+import Input from "../CustomInput/Input.js";
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -35,17 +38,19 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 export default function NewBus() {
+  const [ID, setID] = React.useState(false);
+  const [email, setEmail] = React.useState(false);
+  const [firstName, setfirstName] = React.useState(false);
+  const [lastName, setlastName] = React.useState(false);
+  const [phone, setPhone] = React.useState(false);
   const [select, setSelect] = React.useState(false);
+  const [to, setTo] = React.useState(false);
+  const [departure, setDeparture] = React.useState(false);
   const [payment, setPayment] = React.useState(false);
   const [status, setStatus] = React.useState();
   const [download, setDownload] = React.useState();
   const [pdf, setPdf] = React.useState();
-  
-  const customRef = data => {
-    setStatus(data);
-  };
 
-  
   const callbackFunction = childData => {
     setSelect(childData);
   };
@@ -64,8 +69,20 @@ export default function NewBus() {
             <CardBody>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="ID Number/Passport Number"
+                  <Input
+                    id="email-address"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputCustomRef={ref => {
+                      setEmail(ref);
+                    }}
+                    labeled="Email Address"
+                  />
+                </GridItem>
+
+                <GridItem xs={12} sm={12} md={6}>
+                  <Input
                     id="company-disabled"
                     formControlProps={{
                       fullWidth: true
@@ -73,66 +90,88 @@ export default function NewBus() {
                     inputProps={{
                       disabled: false
                     }}
-                  />
-                </GridItem>
-
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Email address"
-                    id="email-address"
-                    formControlProps={{
-                      fullWidth: true
+                    inputCustomRef={ref => {
+                      setID(ref);
                     }}
+                    labeled="ID"
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
+                  <Input
                     labelText="First Name"
                     id="first-name"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputCustomRef={ref => {
+                      setfirstName(ref);
+                    }}
+                    labeled="First Name"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
+                  <Input
                     labelText="Last Name"
                     id="last-name"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputCustomRef={ref => {
+                      setlastName(ref);
+                    }}
+                    labeled="Last Name"
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
+                  <Input
                     labelText=" From "
                     id="city"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputCustomRef={ref => {
+                      setDeparture(ref);
+                    }}
+                    labeled="From "
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
+                  <Input
                     labelText="To"
                     id="country"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputCustomRef={ref => {
+                      setTo(ref);
+                    }}
+                    labeled="To "
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
+                  <Input
                     labelText="Phone Number"
                     id="postal-code"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputCustomRef={ref => {
+                      setPhone(ref);
+                    }}
+                    labeled="Phone "
                   />
+                </GridItem>
+              </GridContainer>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={6}>
+                  <MaterialDatePickers />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                  <MaterialTimePicker />
                 </GridItem>
               </GridContainer>
             </CardBody>
@@ -150,14 +189,31 @@ export default function NewBus() {
               </p>
             </CardHeader>
             <CardBody>
-              <GridContainer>
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
+              <GridContainer container spacing={3}>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <SecondCustomCard />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <SecondCustomCard />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <SecondCustomCard />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <SecondCustomCard />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <SecondCustomCard />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={6}>
+                    <SecondCustomCard />
+                  </GridItem>
+                </GridContainer>
               </GridContainer>
             </CardBody>
             {select === true ? (

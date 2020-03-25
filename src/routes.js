@@ -17,19 +17,22 @@
 */
 // @material-ui/icons
 import AddIcon from "@material-ui/icons/Add";
+import AirportShuttleIcon from "@material-ui/icons/AirportShuttle";
 import BusinessIcon from "@material-ui/icons/Business";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Ticket from "components/Ticket/Ticket";
+import Control from "views/Bus/Control";
 import Branch from "views/Business/Branch";
 import Business from "views/Business/Business";
 import Client from "views/Client/Client";
 import NewBus from "views/NewBus/NewBus";
 import Reports from "views/Reports/Reports";
 import Settings from "views/Settings/Settings";
-import TableList from "views/TableList/TableList.js";
+import TableList from "views/TableList/TableList";
+
 const dashboardRoutes = [
   {
     path: "/table",
@@ -70,6 +73,14 @@ const dashboardRoutes = [
     rtlName: "طباعة",
     icon: AddIcon,
     component: Ticket,
+    layout: "/admin"
+  },
+  {
+    path: "/bus/control",
+    name: "Bus Control",
+    rtlName: "طباعة",
+    icon: AirportShuttleIcon,
+    component: Control,
     layout: "/admin"
   },
   {

@@ -1,6 +1,6 @@
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import logo from "assets/img/reactlogo.png";
+import logo from "assets/img/safari_pass.jpeg";
 import bgImage from "assets/img/sidebar-2.jpg";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 // core components

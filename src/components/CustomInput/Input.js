@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import React from "react";
@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Input(props) {
   const classes = useStyles();
-  const { inputCustomRef,labeled } = props;
+  // eslint-disable-next-line react/prop-types
+  const { inputCustomRef, labeled } = props;
   const [value, setValue] = React.useState();
 
   const handleChange = event => {
