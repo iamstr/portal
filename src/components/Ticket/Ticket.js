@@ -53,7 +53,7 @@ export default function NewBus() {
   const [departure, setDeparture] = React.useState(false);
   const [payment, setPayment] = React.useState(false);
 
-  const [busData, setBusData] = React.useState();
+  const [busData, setBusData] = React.useState([]);
   const [pdf, setPdf] = React.useState();
 
   const theDateData = (childData) => {
@@ -74,19 +74,6 @@ export default function NewBus() {
   React.useEffect(() => {
     fetchBuses();
   }, [busData]);
-  const busData = [
-    { busName: " 1" },
-    { busName: " 2" },
-    { busName: " 3" },
-    { busName: " 4" },
-    { busName: " 5" },
-    { busName: " 6" },
-    { busName: " 7" },
-    { busName: " 8" },
-    { busName: " 9" },
-    { busName: "10" },
-    { busName: "11" }
-  ];
 
   const handleSubmit = (travelDate) => {
     let formBody = [],

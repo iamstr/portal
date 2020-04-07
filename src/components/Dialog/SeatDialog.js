@@ -22,7 +22,7 @@ const styles = {
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
-    marginBottom: "0"
+    marginBottom: "0",
   },
   cardTitleWhite: {
     color: "#FFFFFF",
@@ -31,8 +31,8 @@ const styles = {
     fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 };
 
 const useStyles = makeStyles(styles);
@@ -45,7 +45,7 @@ export default function SeatDialog(props) {
   const [select, setSelect] = React.useState(false);
   const [pdf, setPdf] = React.useState();
   const classes = useStyles();
-  const callbackFunction = childData => {
+  const callbackFunction = (childData) => {
     setSelect(childData);
   };
 
@@ -115,7 +115,7 @@ export default function SeatDialog(props) {
                       seat: "A20",
                       name: "abdisatar mohamed",
                       paid: "mpesa",
-                      "travel Date": "20/01/20"
+                      "travel Date": "20/01/20",
                     }}
                   />
                 }
@@ -125,7 +125,7 @@ export default function SeatDialog(props) {
                   padding: "10px",
                   color: "#4a4a4a",
                   backgroundColor: "#f2f2f2",
-                  border: "1px solid #4a4a4a"
+                  border: "1px solid #4a4a4a",
                 }}
               >
                 {({ blob, url, loading, error }) =>
@@ -149,5 +149,6 @@ export default function SeatDialog(props) {
 }
 
 SeatDialog.propTypes = {
-  busNumber: PropTypes.string
+  busNumber: PropTypes.string,
+  seatData: PropTypes.array,
 };
