@@ -22,6 +22,7 @@ import BusinessIcon from "@material-ui/icons/Business";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import DirectionsBusIcon from "@material-ui/icons/DirectionsBus";
 import PersonIcon from "@material-ui/icons/Person";
+import RestoreIcon from "@material-ui/icons/Restore";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Ticket from "components/Ticket/Ticket";
 import Control from "views/Bus/Control";
@@ -32,7 +33,6 @@ import NewBus from "views/NewBus/NewBus";
 import Reports from "views/Reports/Reports";
 import Settings from "views/Settings/Settings";
 import TableList from "views/TableList/TableList";
-
 const dashboardRoutes = [
   {
     path: "/table",
@@ -96,6 +96,14 @@ const dashboardRoutes = [
     name: "Add New Branch",
     rtlName: "طباعة",
     icon: AddIcon,
+    component: Branch,
+    layout: "/admin"
+  },
+  {
+    path: "/manage/branch/add",
+    name: "Restore Ticket",
+    rtlName: "طباعة",
+    icon: RestoreIcon,
     component: Branch,
     layout: "/admin"
   },

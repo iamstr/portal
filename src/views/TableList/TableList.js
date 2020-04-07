@@ -43,7 +43,20 @@ const useStyles = makeStyles(styles);
 
 export default function TableList() {
   const classes = useStyles();
-  const [buses, setBus] = React.useState([]);
+  const [buses, setBus] = React.useState([
+    {
+      branch_id: 1,
+      branch_name: "Westlands",
+      branch_location: "Nairobi",
+      branch_status: "Active"
+    },
+    {
+      branch_id: 2,
+      branch_name: "Nairobi CBD",
+      branch_location: "Nairobi",
+      branch_status: "Active"
+    }
+  ]);
   const fetchBuses = async () => {
     const urlBuses = await fetch("http://localhost:5000/new/bus");
     const response = await urlBuses.json();
@@ -53,7 +66,7 @@ export default function TableList() {
 
   React.useEffect(() => {
     fetchBuses();
-  }, ["http://localhost:5000/new/bus"]);
+  }, [buses]);
 
   return (
     <GridContainer>

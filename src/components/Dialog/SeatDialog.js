@@ -1,4 +1,4 @@
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -9,10 +9,11 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardHeader from "components/Card/CardHeader.js";
-import { Button as CustomButton } from "components/CustomButtons/Button";
+import Button from "components/CustomButtons/Button";
 import FormDialog from "components/Dialog/Dialog";
 import GridContainer from "components/Grid/GridContainer.js";
 import Seats from "components/Seats/Seats";
+import PropTypes from "prop-types";
 import React from "react";
 import PDF from "views/PDF/PDF";
 const styles = {
@@ -35,7 +36,7 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
-export default function SeatDialog() {
+export default function SeatDialog(props) {
   const [open, setOpen] = React.useState(true);
 
   const [payment, setPayment] = React.useState(false);
@@ -59,7 +60,10 @@ export default function SeatDialog() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title"> choose Seat</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {" "}
+          choose Seat from Bus Name {props.busNumber}
+        </DialogTitle>
         <DialogContent>
           <Card>
             <CardHeader color="info">
@@ -82,7 +86,7 @@ export default function SeatDialog() {
             {select === true ? (
               <CardFooter>
                 <Button
-                  color="primary"
+                  color="info"
                   onClick={() => {
                     setPayment(!payment);
                   }}
@@ -132,10 +136,10 @@ export default function SeatDialog() {
           </Card>
         </DialogContent>
         <DialogActions>
-          <CustomButton onClick={handleClose} color="safari">
+          <Button onClick={handleClose} color="transparent">
             Cancel
-          </CustomButton>
-          <Button onClick={handleClose} color="primary">
+          </Button>
+          <Button onClick={handleClose} color="safari">
             Save
           </Button>
         </DialogActions>
@@ -143,3 +147,7 @@ export default function SeatDialog() {
     </div>
   );
 }
+
+SeatDialog.propTypes = {
+  busNumber: PropTypes.string
+};

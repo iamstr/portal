@@ -13,6 +13,7 @@ import FormDialog from "components/Dialog/Dialog";
 import GridContainer from "components/Grid/GridContainer.js";
 // core components
 import GridItem from "components/Grid/GridItem.js";
+import moment from "moment";
 import React from "react";
 import PDF from "views/PDF/PDF";
 import "../../assets/css/styles.css";
@@ -45,16 +46,91 @@ export default function NewBus() {
   const [phone, setPhone] = React.useState(false);
   const [select, setSelect] = React.useState(false);
   const [to, setTo] = React.useState(false);
+  const [theDateTravel, setTheDateTravel] = React.useState(false);
+  const [theTimeTravel, setTheTimeTravel] = React.useState(false);
+
+  const [flag, setFlag] = React.useState("info");
   const [departure, setDeparture] = React.useState(false);
   const [payment, setPayment] = React.useState(false);
-  const [status, setStatus] = React.useState();
-  const [download, setDownload] = React.useState();
+
+  const [busData, setBusData] = React.useState();
   const [pdf, setPdf] = React.useState();
 
-  const callbackFunction = childData => {
-    setSelect(childData);
+  const theDateData = (childData) => {
+    setTheDateTravel(childData);
   };
+  const theTimeData = (childData) => {
+    setTheTimeTravel(childData);
+  };
+  React.useEffect(() => {}, [theTimeTravel, theDateTravel]);
   const classes = useStyles();
+  const fetchBuses = async () => {
+    const urlBuses = await fetch("http://localhost:5000/new/bus");
+    const response = await urlBuses.json();
+    setBusData(response);
+  };
+  // y
+
+  React.useEffect(() => {
+    fetchBuses();
+  }, [busData]);
+  const busData = [
+    { busName: " 1" },
+    { busName: " 2" },
+    { busName: " 3" },
+    { busName: " 4" },
+    { busName: " 5" },
+    { busName: " 6" },
+    { busName: " 7" },
+    { busName: " 8" },
+    { busName: " 9" },
+    { busName: "10" },
+    { busName: "11" }
+  ];
+
+  const handleSubmit = (travelDate) => {
+    let formBody = [],
+      formRequest = {
+        firstName,
+        lastName,
+        phone,
+        email,
+        departure,
+        ID,
+        to,
+        travelDate
+      };
+
+    console.log(formRequest);
+    for (let property in formRequest) {
+      let encodedKey = encodeURIComponent(property);
+      let encodedValue = encodeURIComponent(formRequest[property]);
+      console.log("the property is ", property);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+    console.log("this is the dbData ", formBody);
+    fetch("http://localhost:5000/bus/ticket", {
+      // mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "post",
+      body: formBody
+    })
+      .then((response) => response.json())
+      .then((contents) => {
+        console.log(contents);
+        setFlag(contents.color);
+        // setMessage(contents.message);
+        // setShow(true);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div>
       <GridContainer container spacing={3}>
@@ -74,7 +150,7 @@ export default function NewBus() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setEmail(ref);
                     }}
                     labeled="Email Address"
@@ -90,7 +166,7 @@ export default function NewBus() {
                     inputProps={{
                       disabled: false
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setID(ref);
                     }}
                     labeled="ID"
@@ -105,7 +181,7 @@ export default function NewBus() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setfirstName(ref);
                     }}
                     labeled="First Name"
@@ -118,7 +194,7 @@ export default function NewBus() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setlastName(ref);
                     }}
                     labeled="Last Name"
@@ -133,7 +209,7 @@ export default function NewBus() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setDeparture(ref);
                     }}
                     labeled="From "
@@ -146,7 +222,7 @@ export default function NewBus() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setTo(ref);
                     }}
                     labeled="To "
@@ -159,7 +235,7 @@ export default function NewBus() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={ref => {
+                    inputCustomRef={(ref) => {
                       setPhone(ref);
                     }}
                     labeled="Phone "
@@ -168,15 +244,27 @@ export default function NewBus() {
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
-                  <MaterialDatePickers />
+                  <MaterialDatePickers theDate={theDateData} />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
-                  <MaterialTimePicker />
+                  <MaterialTimePicker theTime={theTimeData} />
                 </GridItem>
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="safari">Add Ticket Details</Button>
+              <Button
+                color="safari"
+                onClick={() => {
+                  let time =
+                    moment(theDateTravel).format("YYYY-MM-DD ") +
+                    moment(theTimeTravel).format("HH:mm");
+
+                  console.log(time);
+                  handleSubmit(time);
+                }}
+              >
+                Add Ticket Details
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -189,31 +277,8 @@ export default function NewBus() {
               </p>
             </CardHeader>
             <CardBody>
-              <GridContainer container spacing={3}>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <SecondCustomCard />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <SecondCustomCard />
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <SecondCustomCard />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <SecondCustomCard />
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <SecondCustomCard />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <SecondCustomCard />
-                  </GridItem>
-                </GridContainer>
+              <GridContainer>
+                <SecondCustomCard busInfo={busData} />
               </GridContainer>
             </CardBody>
             {select === true ? (

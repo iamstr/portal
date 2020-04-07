@@ -13,6 +13,10 @@ module.exports = {
     }
   },
   plugins: ["react"],
+  rules: {
+    "prettier/prettier": "error",
+    "arrow-parens": "as-needed"
+  },
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",

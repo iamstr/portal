@@ -4,6 +4,7 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import "date-fns";
+import PropTypes from "prop-types";
 import React from "react";
 
 export default function MaterialDatePickers(props) {
@@ -13,7 +14,7 @@ export default function MaterialDatePickers(props) {
   const handleDateChange = date => {
     setSelectedDate(date);
   };
-
+  props.theDate(selectedDate);
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
@@ -33,3 +34,6 @@ export default function MaterialDatePickers(props) {
     </MuiPickersUtilsProvider>
   );
 }
+MaterialDatePickers.propTypes = {
+  theDate: PropTypes.func
+};

@@ -6,18 +6,21 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import "date-fns";
+import moment from "moment";
+import PropTypes from "prop-types";
 import React from "react";
 
 const MaterialTimePicker = props => {
   // The first commit of Material-UI
   const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
+    moment(new Date(), "hh:mm ")
   );
 
   const handleDateChange = date => {
     setSelectedDate(date);
   };
 
+  props.theTime(selectedDate);
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardTimePicker
@@ -37,3 +40,6 @@ const MaterialTimePicker = props => {
 };
 
 export default MaterialTimePicker;
+MaterialTimePicker.propTypes = {
+  theTime: PropTypes.func
+};
