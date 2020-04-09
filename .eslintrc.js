@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   plugins: ["react"],
-  rules: {},
+
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",

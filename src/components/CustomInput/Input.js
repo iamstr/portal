@@ -19,12 +19,13 @@ export default function Input(props) {
   const handleChange = event => {
     setValue(event.target.value);
   };
-
+  const { id, error } = props;
   return (
     <form className={classes.root} noValidate autoComplete="on">
       <TextField
         required
-        id="outlined-basic"
+        error={error[id] === undefined ? true : false}
+        id={id || "outlined-basic"}
         variant="outlined"
         label={labeled}
         value={value}
@@ -39,5 +40,6 @@ export default function Input(props) {
 
 Input.prototype = {
   inputCustomRef: PropTypes.func,
-  labeled: PropTypes.string
+  labeled: PropTypes.string,
+  id: PropTypes.string
 };

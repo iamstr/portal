@@ -14,7 +14,7 @@ export default function Card(props) {
   const [seat, setSeat] = React.useState(false);
   const [seatData, setSeatData] = React.useState([]);
   const [value, setValue] = React.useState("");
-  const fetchBuses = async (busId) => {
+  const fetchBuses = async busId => {
     busId = busId || 1;
     if (busId === 1) return null;
     const urlBuses = await fetch("http://localhost:5000/site/seats/" + busId);
@@ -51,7 +51,7 @@ export default function Card(props) {
               <Button
                 color="safari"
                 value={bus.bus_id}
-                onClick={(e) => {
+                onClick={e => {
                   setSeat(!seat);
 
                   e.preventDefault();
@@ -68,10 +68,10 @@ export default function Card(props) {
         );
       })}
 
-      {seat && <SeatDialog busNumber={value} seatData={seatData} />}
+      {seat && <SeatDialog busNumber={value} />}
     </GridContainer>
   );
 }
 Card.propTypes = {
-  busInfo: PropTypes.array,
+  busInfo: PropTypes.array
 };

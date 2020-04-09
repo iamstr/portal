@@ -11,7 +11,6 @@ import CardFooter from "components/Card/CardFooter.js";
 import CardHeader from "components/Card/CardHeader.js";
 import Button from "components/CustomButtons/Button";
 import FormDialog from "components/Dialog/Dialog";
-import GridContainer from "components/Grid/GridContainer.js";
 import Seats from "components/Seats/Seats";
 import PropTypes from "prop-types";
 import React from "react";
@@ -22,7 +21,7 @@ const styles = {
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
-    marginBottom: "0",
+    marginBottom: "0"
   },
   cardTitleWhite: {
     color: "#FFFFFF",
@@ -31,8 +30,8 @@ const styles = {
     fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
-    textDecoration: "none",
-  },
+    textDecoration: "none"
+  }
 };
 
 const useStyles = makeStyles(styles);
@@ -43,11 +42,24 @@ export default function SeatDialog(props) {
   const [status, setStatus] = React.useState();
   const [download, setDownload] = React.useState();
   const [select, setSelect] = React.useState(false);
+  const [seatData, setSeatData] = React.useState([]);
   const [pdf, setPdf] = React.useState();
   const classes = useStyles();
-  const callbackFunction = (childData) => {
+  const callbackFunction = childData => {
     setSelect(childData);
   };
+  const fetchBuses = async busId => {
+    busId = busId || 1;
+    if (busId === 1) return [];
+    const urlBuses = await fetch("http://localhost:5000/site/seats/" + busId);
+    const response = await urlBuses.json();
+    setSeatData(response);
+    console.log(response);
+  };
+
+  React.useEffect(() => {
+    fetchBuses(props.busNumber);
+  }, [props.busNumber]);
 
   const handleClose = () => {
     setOpen(false);
@@ -73,15 +85,7 @@ export default function SeatDialog(props) {
               </p>
             </CardHeader>
             <CardBody>
-              <GridContainer>
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-                <Seats parentCallback={callbackFunction} />
-              </GridContainer>
+              <Seats seatData={seatData} parentCallback={callbackFunction} />
             </CardBody>
             {select === true ? (
               <CardFooter>
@@ -115,7 +119,7 @@ export default function SeatDialog(props) {
                       seat: "A20",
                       name: "abdisatar mohamed",
                       paid: "mpesa",
-                      "travel Date": "20/01/20",
+                      "travel Date": "20/01/20"
                     }}
                   />
                 }
@@ -125,7 +129,7 @@ export default function SeatDialog(props) {
                   padding: "10px",
                   color: "#4a4a4a",
                   backgroundColor: "#f2f2f2",
-                  border: "1px solid #4a4a4a",
+                  border: "1px solid #4a4a4a"
                 }}
               >
                 {({ blob, url, loading, error }) =>
@@ -149,6 +153,5 @@ export default function SeatDialog(props) {
 }
 
 SeatDialog.propTypes = {
-  busNumber: PropTypes.string,
-  seatData: PropTypes.array,
+  busNumber: PropTypes.string
 };

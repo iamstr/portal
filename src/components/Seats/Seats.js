@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 const array = {
   color: "white",
@@ -90,21 +91,41 @@ export default function Seats(props) {
   const classes = useStyles();
   const [select, setSelect] = useState(false);
   const sendData = data => {
-    setSelect(!select)
+    setSelect(!select);
     data = select;
     props.parentCallback(!data);
   };
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={2}>
-          <div className={classes.seatBodySelected}>
-            A4
-            <div className={classes.bodyLeft}></div>
-            <div className={classes.bodyRight}></div>
-            <div className={classes.bodyBottom}></div>
-          </div>
-        </Grid>
+        {props.seatData.map((seat, index) => {
+          return (
+            <Grid item xs={2} key={index}>
+              <div
+                className={classes.seatedBodyBooked}
+                onClick={e => {
+                  if (
+                    e.currentTarget.classList.contains(classes.seatedBodyBooked)
+                  ) {
+                    e.currentTarget.classList.remove(classes.seatedBodyBooked);
+                    e.currentTarget.classList.add(classes.seatBody);
+                  } else {
+                    e.currentTarget.classList.add(classes.seatedBodyBooked);
+                    e.currentTarget.classList.remove(classes.seatBody);
+                  }
+
+                  sendData();
+                }}
+              >
+                {seat.seat_name}
+                <div className={classes.bodyLeft}></div>
+                <div className={classes.bodyRight}></div>
+                <div className={classes.bodyBottom}></div>
+              </div>
+            </Grid>
+          );
+        })}
+
         <Grid item xs={2}>
           <div
             className={
@@ -143,3 +164,8 @@ export default function Seats(props) {
     </div>
   );
 }
+
+Seats.prototype = {
+  seatData: PropTypes.array,
+  parentCallback: PropTypes.func
+};

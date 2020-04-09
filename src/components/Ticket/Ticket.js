@@ -45,9 +45,24 @@ export default function NewBus() {
   const [lastName, setlastName] = React.useState(false);
   const [phone, setPhone] = React.useState(false);
   const [select, setSelect] = React.useState(false);
+  const [errorIndex, setErrorIndex] = React.useState(0);
+  const [error, setError] = React.useState({
+    firstName: false,
+    lastName: false,
+    phone: false,
+    email: false,
+    departure: false,
+    ID: false,
+    to: false,
+    travelDate: false
+  });
   const [to, setTo] = React.useState(false);
-  const [theDateTravel, setTheDateTravel] = React.useState(false);
-  const [theTimeTravel, setTheTimeTravel] = React.useState(false);
+  const [theDateTravel, setTheDateTravel] = React.useState(
+    moment(new Date()).format("YYYY-MM-DD")
+  );
+  const [theTimeTravel, setTheTimeTravel] = React.useState(
+    moment(new Date()).format("HH:mm")
+  );
 
   const [flag, setFlag] = React.useState("info");
   const [departure, setDeparture] = React.useState(false);
@@ -56,13 +71,20 @@ export default function NewBus() {
   const [busData, setBusData] = React.useState([]);
   const [pdf, setPdf] = React.useState();
 
-  const theDateData = (childData) => {
+  const theDateData = childData => {
     setTheDateTravel(childData);
   };
-  const theTimeData = (childData) => {
+  const theTimeData = childData => {
     setTheTimeTravel(childData);
   };
-  React.useEffect(() => {}, [theTimeTravel, theDateTravel]);
+  React.useEffect(() => {
+    localStorage.setItem(
+      "date",
+      moment(theDateTravel).format("YYYY-MM-DD ") +
+        moment(theTimeTravel).format("HH:mm")
+    );
+    console.log(localStorage.getItem("date"));
+  }, [theTimeTravel, theDateTravel]);
   const classes = useStyles();
   const fetchBuses = async () => {
     const urlBuses = await fetch("http://localhost:5000/new/bus");
@@ -75,7 +97,7 @@ export default function NewBus() {
     fetchBuses();
   }, [busData]);
 
-  const handleSubmit = (travelDate) => {
+  const handleSubmit = travelDate => {
     let formBody = [],
       formRequest = {
         firstName,
@@ -88,10 +110,10 @@ export default function NewBus() {
         travelDate
       };
 
-    console.log(formRequest);
     for (let property in formRequest) {
       let encodedKey = encodeURIComponent(property);
       let encodedValue = encodeURIComponent(formRequest[property]);
+
       console.log("the property is ", property);
       formBody.push(encodedKey + "=" + encodedValue);
     }
@@ -106,14 +128,14 @@ export default function NewBus() {
       method: "post",
       body: formBody
     })
-      .then((response) => response.json())
-      .then((contents) => {
+      .then(response => response.json())
+      .then(contents => {
         console.log(contents);
         setFlag(contents.color);
         // setMessage(contents.message);
         // setShow(true);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.message);
       });
   };
@@ -133,27 +155,29 @@ export default function NewBus() {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <Input
-                    id="email-address"
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setEmail(ref);
                     }}
                     labeled="Email Address"
+                    id="email"
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={6}>
                   <Input
-                    id="company-disabled"
+                    id="ID"
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
                       disabled: false
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setID(ref);
                     }}
                     labeled="ID"
@@ -164,68 +188,73 @@ export default function NewBus() {
                 <GridItem xs={12} sm={12} md={6}>
                   <Input
                     labelText="First Name"
-                    id="first-name"
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setfirstName(ref);
                     }}
                     labeled="First Name"
+                    id="firstName"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
                   <Input
                     labelText="Last Name"
-                    id="last-name"
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setlastName(ref);
                     }}
                     labeled="Last Name"
+                    id="lastName"
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
                   <Input
-                    labelText=" From "
-                    id="city"
+                    labelText=" departure "
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setDeparture(ref);
                     }}
                     labeled="From "
+                    id="departure"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
                   <Input
                     labelText="To"
-                    id="country"
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setTo(ref);
                     }}
                     labeled="To "
+                    id="to"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
                   <Input
                     labelText="Phone Number"
-                    id="postal-code"
+                    error={error}
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputCustomRef={(ref) => {
+                    inputCustomRef={ref => {
                       setPhone(ref);
                     }}
                     labeled="Phone "
+                    id="phone"
                   />
                 </GridItem>
               </GridContainer>
@@ -247,6 +276,15 @@ export default function NewBus() {
                     moment(theTimeTravel).format("HH:mm");
 
                   console.log(time);
+                  setError({
+                    firstName,
+                    lastName,
+                    phone,
+                    email,
+                    departure,
+                    ID,
+                    to
+                  });
                   handleSubmit(time);
                 }}
               >
