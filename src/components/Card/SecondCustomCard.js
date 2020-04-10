@@ -12,6 +12,7 @@ export default function Card(props) {
   let key = 0;
   const { busInfo } = props;
   const [seat, setSeat] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(true);
   const [seatData, setSeatData] = React.useState([]);
   const [value, setValue] = React.useState("");
   const fetchBuses = async busId => {
@@ -24,7 +25,9 @@ export default function Card(props) {
   };
   const refContainer = React.useRef([]);
 
-  useEffect(() => {}, [refContainer]);
+  useEffect(() => {
+    console.log(disabled);
+  }, [disabled]);
 
   useEffect(() => {
     fetchBuses(value);
@@ -51,6 +54,7 @@ export default function Card(props) {
               <Button
                 color="safari"
                 value={bus.bus_id}
+                disabled={props.disabled ? true : false}
                 onClick={e => {
                   setSeat(!seat);
 
@@ -73,5 +77,6 @@ export default function Card(props) {
   );
 }
 Card.propTypes = {
-  busInfo: PropTypes.array
+  busInfo: PropTypes.array,
+  disabled: PropTypes.bool
 };

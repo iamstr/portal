@@ -65,6 +65,7 @@ export default function NewBus() {
   );
 
   const [flag, setFlag] = React.useState("info");
+  const [disabled, setDisabled] = React.useState(true);
   const [departure, setDeparture] = React.useState(false);
   const [payment, setPayment] = React.useState(false);
 
@@ -96,6 +97,9 @@ export default function NewBus() {
   React.useEffect(() => {
     fetchBuses();
   }, [busData]);
+  React.useEffect(() => {
+    console.log(disabled, " disabled changed");
+  }, [disabled]);
 
   const handleSubmit = travelDate => {
     let formBody = [],
@@ -285,6 +289,40 @@ export default function NewBus() {
                     ID,
                     to
                   });
+
+                  const even = element => element === "" || undefined;
+
+                  if (
+                    firstName == "" ||
+                    firstName == undefined ||
+                    lastName == "" ||
+                    lastName == undefined ||
+                    phone == "" ||
+                    phone == undefined ||
+                    email == "" ||
+                    email == undefined ||
+                    departure == "" ||
+                    departure == undefined ||
+                    ID == "" ||
+                    ID == undefined ||
+                    to == "" ||
+                    to == undefined
+                  ) {
+                    setDisabled(true);
+                  } else {
+                    console.log({
+                      firstName,
+                      lastName,
+                      phone,
+                      email,
+                      departure,
+                      ID,
+                      to
+                    });
+                    setDisabled(false);
+                  }
+
+                  console.log(disabled);
                   handleSubmit(time);
                 }}
               >
@@ -303,7 +341,7 @@ export default function NewBus() {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                <SecondCustomCard busInfo={busData} />
+                <SecondCustomCard busInfo={busData} disabled={disabled} />
               </GridContainer>
             </CardBody>
             {select === true ? (
