@@ -65,7 +65,7 @@ export default function Card(props) {
                   })();
                 }}
               >
-                Select Bus {bus.busName}
+                Select Bus {bus.bus_id}
               </Button>
             </article>
           </GridItem>
