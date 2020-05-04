@@ -9,7 +9,6 @@ import SecondCustomCard from "components/Card/SecondCustomCard.js";
 import Button from "components/CustomButtons/Button.js";
 import MaterialDatePickers from "components/CustomDate/CustomDate.js";
 import MaterialTimePicker from "components/CustomDate/CustomTime.js";
-import FormDialog from "components/Dialog/Dialog";
 import GridContainer from "components/Grid/GridContainer.js";
 // core components
 import GridItem from "components/Grid/GridItem.js";
@@ -88,7 +87,9 @@ export default function NewBus() {
   }, [theTimeTravel, theDateTravel]);
   const classes = useStyles();
   const fetchBuses = async () => {
-    const urlBuses = await fetch("http://localhost:5000/new/bus");
+    const urlBuses = await fetch(
+      "http://localhost:5000/new/bus/" + localStorage.getItem("company")
+    );
     const response = await urlBuses.json();
     setBusData(response);
   };
@@ -97,11 +98,9 @@ export default function NewBus() {
   React.useEffect(() => {
     fetchBuses();
   }, [busData]);
-  React.useEffect(() => {
-    console.log(disabled, " disabled changed");
-  }, [disabled]);
+  React.useEffect(() => {}, [disabled]);
 
-  const handleSubmit = travelDate => {
+  const handleSubmit = (travelDate, user) => {
     let formBody = [],
       formRequest = {
         firstName,
@@ -111,19 +110,19 @@ export default function NewBus() {
         departure,
         ID,
         to,
-        travelDate
+        travelDate,
+        user
       };
 
     for (let property in formRequest) {
       let encodedKey = encodeURIComponent(property);
       let encodedValue = encodeURIComponent(formRequest[property]);
 
-      console.log("the property is ", property);
       formBody.push(encodedKey + "=" + encodedValue);
     }
 
     formBody = formBody.join("&");
-    console.log("this is the dbData ", formBody);
+
     fetch("http://localhost:5000/bus/ticket", {
       // mode: "no-cors",
       headers: {
@@ -135,13 +134,12 @@ export default function NewBus() {
       .then(response => response.json())
       .then(contents => {
         console.log(contents);
+        localStorage.setItem("booking_id", contents.booking_id);
         setFlag(contents.color);
         // setMessage(contents.message);
         // setShow(true);
       })
-      .catch(error => {
-        console.log(error.message);
-      });
+      .catch(error => {});
   };
 
   return (
@@ -279,7 +277,6 @@ export default function NewBus() {
                     moment(theDateTravel).format("YYYY-MM-DD ") +
                     moment(theTimeTravel).format("HH:mm");
 
-                  console.log(time);
                   setError({
                     firstName,
                     lastName,
@@ -310,20 +307,13 @@ export default function NewBus() {
                   ) {
                     setDisabled(true);
                   } else {
-                    console.log({
-                      firstName,
-                      lastName,
-                      phone,
-                      email,
-                      departure,
-                      ID,
-                      to
-                    });
                     setDisabled(false);
                   }
 
-                  console.log(disabled);
-                  handleSubmit(time);
+                  /* localStorage.setItem("travel", time) */
+                  const user = localStorage.getItem("user");
+                  console.log(localStorage.getItem("date"));
+                  handleSubmit(time, user);
                 }}
               >
                 Add Ticket Details
@@ -344,21 +334,14 @@ export default function NewBus() {
                 <SecondCustomCard busInfo={busData} disabled={disabled} />
               </GridContainer>
             </CardBody>
-            {select === true ? (
+            {select && (
               <CardFooter>
-                <Button
-                  color="primary"
-                  onClick={() => {
-                    setPayment(!payment);
-                  }}
-                >
+                <Button color="primary" onClick={() => {}}>
                   Continue to Payment
                 </Button>
               </CardFooter>
-            ) : (
-              ""
             )}
-            {payment === true ? (
+            {/* {payment === true ? (
               <FormDialog
                 pdfShow={() => {
                   setPdf(true);
@@ -366,7 +349,7 @@ export default function NewBus() {
               />
             ) : (
               ""
-            )}
+            )} */}
 
             {pdf && (
               <PDFDownloadLink

@@ -58,15 +58,20 @@ export default function TableList() {
     }
   ]);
   const fetchBuses = async () => {
-    const urlBuses = await fetch("http://localhost:5000/new/bus");
+    const company = await localStorage.getItem("company");
+    const urlBuses = await fetch("http://localhost:5000/new/bus/" + company);
     const response = await urlBuses.json();
     setBus(response);
   };
   // y
 
   React.useEffect(() => {
+    let isCancelled = false;
     fetchBuses();
-  }, [buses]);
+    return () => {
+      isCancelled = true;
+    };
+  }, ["http://localhost:5000/new/bus/" + localStorage.getItem("company")]);
 
   return (
     <GridContainer>

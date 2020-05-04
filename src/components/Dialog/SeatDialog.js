@@ -45,6 +45,43 @@ export default function SeatDialog(props) {
   const [seatData, setSeatData] = React.useState([]);
   const [pdf, setPdf] = React.useState();
   const classes = useStyles();
+
+  const handleSeatSelection = ({ booking_id, seat_id, date }) => {
+    let formBody = [],
+      formRequest = {
+        booking_id,
+        seat_id,
+        date
+      };
+
+    for (let property in formRequest) {
+      let encodedKey = encodeURIComponent(property);
+      let encodedValue = encodeURIComponent(formRequest[property]);
+
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    fetch("http://localhost:5000/seat/selection", {
+      // mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "post",
+      body: formBody
+    })
+      .then(response => response.json())
+      .then(contents => {
+        console.log(contents);
+        localStorage("booking", contents.booking_id);
+
+        // setMessage(contents.message);
+        // setShow(true);
+      })
+      .catch(error => {});
+  };
+
   const callbackFunction = childData => {
     setSelect(childData);
   };
@@ -93,6 +130,20 @@ export default function SeatDialog(props) {
                 <Button
                   color="info"
                   onClick={() => {
+                    (async () => {
+                      const booking_id = await localStorage.getItem(
+                          "booking_id"
+                        ),
+                        seat_id = await localStorage.getItem("seat_id"),
+                        date = await localStorage.getItem("date");
+                      console.log("here is the the ids ", {
+                        booking_id,
+                        seat_id,
+                        date
+                      });
+                      await handleSeatSelection({ booking_id, seat_id, date });
+                      /* await setPayment(!payment); */
+                    })();
                     setPayment(!payment);
                   }}
                 >

@@ -21,10 +21,12 @@ export default function Input(props) {
   };
   const { id, error } = props;
   return (
-    <form className={classes.root} noValidate autoComplete="on">
+    <div className={classes.root}>
       <TextField
         required
-        error={error[id] === undefined ? true : false}
+        error={
+          id === undefined ? false : error[id] === undefined ? true : false
+        }
         id={id || "outlined-basic"}
         variant="outlined"
         label={labeled}
@@ -34,7 +36,7 @@ export default function Input(props) {
         }}
         onChange={handleChange}
       />
-    </form>
+    </div>
   );
 }
 

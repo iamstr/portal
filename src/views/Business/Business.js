@@ -57,16 +57,23 @@ export default function Business() {
     }
   ]);
   const fetchBranches = async () => {
-    const urlBranches = await fetch("http://localhost:5000/site/branch");
+    const company = await localStorage.getItem("company");
+    const urlBranches = await fetch(
+      "http://localhost:5000/site/branch/" + company
+    );
     const response = await urlBranches.json();
     setBranches(response);
   };
   React.useEffect(() => {
+    let isCancelled = false;
     fetchBranches();
-  });
+    return () => {
+      isCancelled = true;
+    };
+  }, ["http://localhost:5000/site/branch/" + localStorage.getItem("company")]);
 
   const classes = useStyles();
- 
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>

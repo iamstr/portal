@@ -51,14 +51,14 @@ export default function NewBus() {
   const [show, setShow] = React.useState(false);
   const inputLabel = React.useRef(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = company => {
     // let headers = new Headers();
 
     // headers.append("Content-Type", "application/json");
     // headers.append("Accept", "application/json");
     const dbData = new FormData();
     let formBody = [],
-      formRequest = { name, location, status };
+      formRequest = { name, location, status, company };
     dbData.append(name, name);
     dbData.append(status, status);
     dbData.append(location, location);
@@ -122,7 +122,6 @@ export default function NewBus() {
                 <GridItem xs={12} sm={12} md={12}>
                   <Input
                     labelText="phone"
-                    id="country"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -137,7 +136,6 @@ export default function NewBus() {
                 <GridItem xs={12} sm={12} md={12}>
                   <Input
                     labelText="First Name"
-                    id="first-name"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -162,7 +160,7 @@ export default function NewBus() {
                 color="safari"
                 onClick={() => {
                   //setRole(true);
-                  handleSubmit();
+                  handleSubmit(localStorage.getItem("company"));
                   console.log(name, status, location);
                 }}
               >

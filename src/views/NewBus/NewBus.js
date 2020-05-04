@@ -58,18 +58,19 @@ export default function NewBus() {
   const [show, setShow] = React.useState(false);
   const inputLabel = React.useRef(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = company => {
     // let headers = new Headers();
 
     // headers.append("Content-Type", "application/json");
     // headers.append("Accept", "application/json");
     const dbData = new FormData();
     let formBody = [],
-      formRequest = { name, type, seat, plate };
+      formRequest = { name, type, seat, plate, company };
     dbData.append(name, name);
     dbData.append(seat, seat);
     dbData.append(type, type);
     dbData.append(plate, plate);
+    dbData.append("company_id", company);
     console.log(formRequest);
     for (let property in formRequest) {
       let encodedKey = encodeURIComponent(property);
@@ -91,8 +92,8 @@ export default function NewBus() {
       .then(response => response.json())
       .then(contents => {
         console.log(contents);
-        setStatus(contents.color)
-        setMessage(contents.message)
+        setStatus(contents.color);
+        setMessage(contents.message);
         setShow(true);
       })
       .catch(error => {
@@ -128,7 +129,6 @@ export default function NewBus() {
                 <GridItem xs={12} sm={12} md={12}>
                   <Input
                     labelText="phone"
-                    id="country"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -143,7 +143,6 @@ export default function NewBus() {
                 <GridItem xs={12} sm={12} md={12}>
                   <Input
                     labelText="phone"
-                    id="country"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -159,7 +158,6 @@ export default function NewBus() {
                 <GridItem xs={12} sm={12} md={12}>
                   <Input
                     labelText="First Name"
-                    id="plate-name"
                     formControlProps={{
                       fullWidth: true
                     }}
@@ -181,10 +179,10 @@ export default function NewBus() {
             </CardBody>
             <CardFooter>
               <Button
-                color="primary"
+                color="safari"
                 onClick={() => {
                   //setRole(true);
-                  handleSubmit();
+                  handleSubmit(localStorage.getItem("company"));
                   console.log(name, seat, type, plate);
                 }}
               >

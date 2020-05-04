@@ -30,13 +30,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   },
 
-  seatBody: {
+  selected: {
     background:
       "linear-gradient(196deg, rgba(255,0,99,1) 0%, rgba(247,0,21,1) 100%)",
 
     ...array
   },
-  seatBodySelected: {
+  booked: {
     background:
       "linear-gradient(180deg, rgba(92,92,92,1) 0%, rgba(0,0,0,1) 100%)",
     border: "3px solid black",
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     cursor: "no-drop"
   },
 
-  seatedBodyBooked: {
+  available: {
     background:
       "linear-gradient(196deg, rgba(107,255,0,1) 0%, rgba(0,247,228,1) 100%)",
     border: "3px solid green",
@@ -95,6 +95,7 @@ export default function Seats(props) {
     data = select;
     props.parentCallback(!data);
   };
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -102,18 +103,27 @@ export default function Seats(props) {
           return (
             <Grid item xs={2} key={index}>
               <div
-                className={classes.seatedBodyBooked}
+                className={
+                  classes[seat.seat_selection_status] || classes.available
+                }
+                id={seat.seat_id}
                 onClick={e => {
-                  if (
-                    e.currentTarget.classList.contains(classes.seatedBodyBooked)
+                  if (e.currentTarget.classList.contains(classes.available)) {
+                    e.currentTarget.classList.remove(classes.available);
+                    e.currentTarget.classList.add(classes.selected);
+                  } else if (
+                    e.currentTarget.classList.contains(classes.booked)
                   ) {
-                    e.currentTarget.classList.remove(classes.seatedBodyBooked);
-                    e.currentTarget.classList.add(classes.seatBody);
+                    /* do nothing  */
                   } else {
-                    e.currentTarget.classList.add(classes.seatedBodyBooked);
-                    e.currentTarget.classList.remove(classes.seatBody);
+                    e.currentTarget.classList.add(classes.available);
+                    e.currentTarget.classList.remove(classes.selected);
                   }
-
+                  console.log(e.currentTarget.getAttribute("id"));
+                  localStorage.setItem(
+                    "seat_id",
+                    e.currentTarget.getAttribute("id")
+                  );
                   sendData();
                 }}
               >
@@ -125,47 +135,12 @@ export default function Seats(props) {
             </Grid>
           );
         })}
-
-        <Grid item xs={2}>
-          <div
-            className={
-              select === true ? classes.seatBody : classes.seatedBodyBooked
-            }
-            onClick={() => {
-              sendData();
-            }}
-          >
-            A4
-            <div className={classes.bodyLeft}></div>
-            <div className={classes.bodyRight}></div>
-            <div className={classes.bodyBottom}></div>
-          </div>
-        </Grid>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={2}></Grid>
-
-        <Grid item xs={2}>
-          <div className={classes.seatBodySelected}>
-            A4
-            <div className={classes.bodyLeft}></div>
-            <div className={classes.bodyRight}></div>
-            <div className={classes.bodyBottom}></div>
-          </div>
-        </Grid>
-        <Grid item xs={2}>
-          <div className={classes.seatedBodyBooked}>
-            A4
-            <div className={classes.bodyLeft}></div>
-            <div className={classes.bodyRight}></div>
-            <div className={classes.bodyBottom}></div>
-          </div>
-        </Grid>
       </Grid>
     </div>
   );
 }
 
-Seats.prototype = {
+Seats.propTypes = {
   seatData: PropTypes.array,
   parentCallback: PropTypes.func
 };

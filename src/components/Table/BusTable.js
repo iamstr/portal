@@ -24,31 +24,27 @@ export default function CustomTable(props) {
           {tableData.map((bus, key) => {
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
-                <TableCell className={classes.tableCell} key={key + 1}>
+                <TableCell className={classes.tableCell}>
                   {bus.bus_id}
                 </TableCell>
-                <TableCell className={classes.tableCell} key={key + 2}>
+                <TableCell className={classes.tableCell}>
                   {bus.bus_name}
                 </TableCell>
-                <TableCell className={classes.tableCell} key={key + 3}>
+                <TableCell className={classes.tableCell}>
                   {bus.bus_plate_number}
                 </TableCell>
-                <TableCell className={classes.tableCell} key={key + 3}>
+                <TableCell className={classes.tableCell}>
                   {bus.bus_seat_number}
                 </TableCell>
 
                 {bus.bus_status === "Active" ? (
                   <TableCell
                     className={classes.tableCell + " " + "bus--active"}
-                    key={key + 5}
                   >
                     {bus.bus_status}
                   </TableCell>
                 ) : (
-                  <TableCell
-                    className={classes.tableCell + " " + "bus--broke"}
-                    key={key + 5}
-                  >
+                  <TableCell className={classes.tableCell + " " + "bus--broke"}>
                     Inactive
                   </TableCell>
                 )}

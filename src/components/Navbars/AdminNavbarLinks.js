@@ -1,29 +1,29 @@
-import React from "react";
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Divider from "@material-ui/core/Divider";
+import Grow from "@material-ui/core/Grow";
+import Hidden from "@material-ui/core/Hidden";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
 import Poppers from "@material-ui/core/Popper";
-import Divider from "@material-ui/core/Divider";
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
+import Dashboard from "@material-ui/icons/Dashboard";
+import Notifications from "@material-ui/icons/Notifications";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
-import Notifications from "@material-ui/icons/Notifications";
-import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
+import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import classNames from "classnames";
+import Button from "components/CustomButtons/Button.js";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-
-import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import React from "react";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
-export default function AdminNavbarLinks() {
+const AdminNavbarLinks = function(props) {
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
@@ -46,6 +46,11 @@ export default function AdminNavbarLinks() {
   };
   const handleCloseProfile = () => {
     setOpenProfile(null);
+  };
+  const handleLogout = () => {
+    setOpenProfile(null);
+    localStorage.clear();
+    props.history.push("/login");
   };
   return (
     <div>
@@ -207,7 +212,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handleLogout}
                       className={classes.dropdownItem}
                     >
                       Logout
@@ -221,4 +226,6 @@ export default function AdminNavbarLinks() {
       </div>
     </div>
   );
-}
+};
+
+export default withRouter(AdminNavbarLinks);
