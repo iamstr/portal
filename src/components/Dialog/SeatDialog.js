@@ -89,7 +89,12 @@ export default function SeatDialog(props) {
     busId = busId || 1;
     if (busId === 1) return [];
     console.log(busId);
-    const urlBuses = await fetch("http://localhost:5000/site/seats/" + busId);
+    const urlBuses = await fetch(
+      "http://localhost:5000/site/seats/" +
+        busId +
+        "/" +
+        localStorage.getItem("date")
+    );
     const response = await urlBuses.json();
     setSeatData(response);
     console.log(response);

@@ -14,8 +14,8 @@ import React from "react";
 
 const useStyles = makeStyles(styles);
 
-export default function CustomInput(props) {
-  const inputLabel = React.useRef(null);
+const CustomInput = React.forwardRef((props, ref) => {
+  const inputValue = React.useRef(null);
   const [value, setValue] = React.useState();
   const classes = useStyles();
   const {
@@ -25,11 +25,19 @@ export default function CustomInput(props) {
     labelProps,
     inputProps,
     error,
-    success
+    success,
+    inputCustomRef,
+    getInput
   } = props;
 
+  React.useImperativeHandle(ref, () => ({
+    value: () => {
+      ref.current.value();
+    }
+  }));
   const handleChange = event => {
     setValue(event.target.value);
+    getInput(event.target.value);
   };
 
   const labelClasses = classNames({
@@ -59,7 +67,6 @@ export default function CustomInput(props) {
         </InputLabel>
       ) : null}
       <Input
-        value={value}
         classes={{
           root: marginTop,
           disabled: classes.disabled,
@@ -76,7 +83,7 @@ export default function CustomInput(props) {
       ) : null}
     </FormControl>
   );
-}
+});
 
 CustomInput.propTypes = {
   labelText: PropTypes.node,
@@ -86,5 +93,8 @@ CustomInput.propTypes = {
   formControlProps: PropTypes.object,
   error: PropTypes.bool,
   success: PropTypes.bool,
-  inputCustomRef: PropTypes.func
+  inputCustomRef: PropTypes.func,
+  getInput: PropTypes.func
 };
+
+export default CustomInput;

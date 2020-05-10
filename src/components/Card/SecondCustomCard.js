@@ -18,7 +18,12 @@ export default function Card(props) {
   const fetchBuses = async busId => {
     busId = busId || 1;
     if (busId === 1) return null;
-    const urlBuses = await fetch("http://localhost:5000/site/seats/" + busId);
+    const urlBuses = await fetch(
+      "http://localhost:5000/site/seats/" +
+        busId +
+        "/" +
+        localStorage.getItem("date")
+    );
     const response = await urlBuses.json();
     setSeatData(response);
     console.log(response);
@@ -30,10 +35,12 @@ export default function Card(props) {
   }, [disabled]);
 
   useEffect(() => {
+    let falsify = true;
     fetchBuses(value);
+    return () => (falsify = false);
   }, [value]);
   return (
-    <GridContainer>
+    <GridContainer data-testid="card">
       {busInfo.map((bus, index) => {
         return (
           <GridItem xs={12} sm={12} md={6} key={index}>
