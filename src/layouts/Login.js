@@ -139,11 +139,11 @@ const Login = function(props) {
           </div>
         </div>
         <div className="column">
-          <h2>Column 2</h2>
-          <p>Some text..</p>
+          <h1>SAFARIPASS</h1>
+          
         </div>
       </div>
-      {localStorage.getItem("user") !== "undefined" || "" ? (
+      {localStorage.getItem("user") === "undefined" || "" ? (
         <RedirectRoute />
       ) : (
         ""
