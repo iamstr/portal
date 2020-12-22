@@ -59,7 +59,7 @@ const Login = function(props) {
         setFlag(contents.color);
         setMessage(contents.message);
 
-        if (flag === "success") {
+        if (flag !== "success") {
           setRole("admin");
           setCompany(1);
           setUser(1);
