@@ -60,9 +60,9 @@ const Login = function(props) {
         setMessage(contents.message);
 
         if (flag === "success") {
-          setRole(contents.role);
-          setCompany(contents.company);
-          setUser(contents.user);
+          setRole("admin");
+          setCompany(1);
+          setUser(1);
           setIsLogged(true);
         }
 
@@ -143,11 +143,10 @@ const Login = function(props) {
           
         </div>
       </div>
-      {localStorage.getItem("user") === "undefined" || "" ? (
+                      {
         <RedirectRoute />
-      ) : (
-        ""
-      )}
+      
+      }
     </>
   );
 };
